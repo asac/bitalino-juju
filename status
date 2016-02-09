@@ -1,0 +1,25 @@
+#This file will contain the last tested status of demo functions.  
+#Please update as you use this demo and commit your changes with 
+#bzr to keep it up-to-date for all. This file wil be scraped and 
+#data imported into reporting sheets. Stick with the format below 
+#and refrain from any "colorful" commentary.
+
+
+#Format
+Demo:Healthcare Bitalino Demo
+Complete: no (still WIP)
+DateOfTest: 08022016
+TestedBy: samuelc
+InfrastructureStatus: pass
+PostDeployStatus: pass
+History: 
+09022016 - Infra deployed. Waiting for code from the scientists
+
+#####################################################################
+Demo:
+Complete:
+DateOfTest:
+TestedBy:
+InfrastructureStatus:
+PostDeployStatus:
+History:

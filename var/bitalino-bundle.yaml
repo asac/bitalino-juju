@@ -1,0 +1,157 @@
+series: trusty
+services: 
+  "kafka-broker": 
+    charm: "cs:trusty/apache-kafka-2"
+    num_units: 1
+    constraints: "cpu-cores=2 mem=2048"
+    expose: true
+    annotations: 
+      "gui-x": "55.71098327636719"
+      "gui-y": "598.9591143409757"
+    to: 
+      - "8"
+  "yarn-master": 
+    charm: "cs:trusty/apache-hadoop-yarn-master-7"
+    num_units: 1
+    constraints: "cpu-cores=2 mem=7168"
+    annotations: 
+      "gui-x": "802.1163940429688"
+      "gui-y": "1177.946927299753"
+    to: 
+      - "4"
+  "compute-slave": 
+    charm: "cs:trusty/apache-hadoop-compute-slave-9"
+    num_units: 3
+    constraints: "cpu-cores=2 mem=3072 root-disk=61440"
+    annotations: 
+      "gui-x": "1081.343994140625"
+      "gui-y": "952.4627225120516"
+    to: 
+      - "0"
+      - "1"
+      - "2"
+  plugin: 
+    charm: "cs:trusty/apache-hadoop-plugin-10"
+    annotations: 
+      "gui-x": "1095.631591796875"
+      "gui-y": "648.0627782066317"
+  spark: 
+    charm: "cs:trusty/apache-spark-6"
+    num_units: 1
+    constraints: "cpu-cores=2 mem=3072"
+    annotations: 
+      "gui-x": "1485.5137939453125"
+      "gui-y": "632.0065333936066"
+    to: 
+      - "6"
+  zeppelin: 
+    charm: "cs:trusty/apache-zeppelin-5"
+    expose: true
+    annotations: 
+      "gui-x": "1791.8450927734375"
+      "gui-y": "667.7618487159757"
+  zookeeper: 
+    charm: "cs:trusty/apache-zookeeper-1"
+    num_units: 1
+    constraints: "cpu-cores=2 mem=2048"
+    annotations: 
+      "gui-x": "63.28375244140625"
+      "gui-y": "948.9159572217316"
+    to: 
+      - "7"
+  "flume-kafka": 
+    charm: "cs:~bigdata-dev/trusty/apache-flume-kafka-5"
+    num_units: 1
+    options: 
+      kafka_topic: "bit-20-15-10-26-63-81"
+      zookeeper_connect: "172.31.10.70:2181"
+    annotations: 
+      "gui-x": "351.9246520996094"
+      "gui-y": "604.9023463818878"
+    to: 
+      - "9"
+  "hdfs-master": 
+    charm: "cs:trusty/apache-hadoop-hdfs-master-9"
+    num_units: 1
+    constraints: "cpu-cores=2 mem=7168 root-disk=61440"
+    annotations: 
+      "gui-x": "1402.42333984375"
+      "gui-y": "1194.9379298779816"
+    to: 
+      - "5"
+  "flume-hdfs": 
+    charm: "cs:trusty/apache-flume-hdfs-4"
+    num_units: 1
+    annotations: 
+      "gui-x": "718.412353515625"
+      "gui-y": "617.7234576026945"
+    to: 
+      - "10"
+  "secondary-namenode": 
+    charm: "cs:trusty/apache-hadoop-hdfs-secondary-7"
+    num_units: 1
+    constraints: "cpu-cores=2 mem=7168 root-disk=61440"
+    annotations: 
+      "gui-x": "1095.784912109375"
+      "gui-y": "1438.5632603075655"
+    to: 
+      - "3"
+relations: 
+  - - "flume-hdfs:hadoop-plugin"
+    - "plugin:hadoop-plugin"
+  - - "kafka-broker:zookeeper"
+    - "zookeeper:zookeeper"
+  - - "hdfs-master:secondary"
+    - "secondary-namenode:secondary"
+  - - "compute-slave:nodemanager"
+    - "yarn-master:nodemanager"
+  - - "plugin:resourcemanager"
+    - "yarn-master:resourcemanager"
+  - - "spark:spark"
+    - "zeppelin:spark"
+  - - "kafka-broker:kafka"
+    - "flume-kafka:kafka"
+  - - "flume-kafka:flume-agent"
+    - "flume-hdfs:flume-agent"
+  - - "plugin:namenode"
+    - "hdfs-master:namenode"
+  - - "compute-slave:datanode"
+    - "hdfs-master:datanode"
+  - - "yarn-master:namenode"
+    - "hdfs-master:namenode"
+  - - "spark:hadoop-plugin"
+    - "plugin:hadoop-plugin"
+machines: 
+  "0": 
+    series: trusty
+    constraints: "arch=amd64 cpu-cores=2 cpu-power=700 mem=3840 root-disk=61440"
+  "1": 
+    series: trusty
+    constraints: "arch=amd64 cpu-cores=2 cpu-power=700 mem=3840 root-disk=61440"
+  "2": 
+    series: trusty
+    constraints: "arch=amd64 cpu-cores=2 cpu-power=700 mem=3840 root-disk=61440"
+  "3": 
+    series: trusty
+    constraints: "arch=amd64 cpu-cores=2 cpu-power=650 mem=7680 root-disk=61440"
+  "4": 
+    series: trusty
+    constraints: "arch=amd64 cpu-cores=2 cpu-power=650 mem=7680 root-disk=8192"
+  "5": 
+    series: trusty
+    constraints: "arch=amd64 cpu-cores=2 cpu-power=650 mem=7680 root-disk=61440"
+  "6": 
+    series: trusty
+    constraints: "arch=amd64 cpu-cores=2 cpu-power=700 mem=3840 root-disk=8192"
+  "7": 
+    series: trusty
+    constraints: "arch=amd64 cpu-cores=2 cpu-power=700 mem=3840 root-disk=8192"
+  "8": 
+    series: trusty
+    constraints: "arch=amd64 cpu-cores=2 cpu-power=700 mem=3840 root-disk=8192"
+  "9": 
+    series: trusty
+    constraints: "arch=amd64 cpu-cores=1 cpu-power=300 mem=3840 root-disk=8192"
+  "10": 
+    series: trusty
+    constraints: "arch=amd64 cpu-cores=1 cpu-power=300 mem=3840 root-disk=8192"
