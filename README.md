@@ -75,6 +75,47 @@ Problem is they are really hard to set up (at scale) and even harder to combine.
 First of all, before you start, charge up your Bitalino kit 
 
 ## Raspberry Pi
+
+### Snappy Ubuntu Core 16.04
+#### Building for x86
+On your developer desktop You need to run xenial or be in a xenial chroot to build the snap.
+
+Before you get started install snapcraft from the archive:
+
+```
+sudo apt-get install snapcraft
+```
+
+Next go into the snap/ directory of this project and run:
+
+```
+snapcraft snap
+```
+
+This will produce a snap ready for installing on any snappy 16.04 install
+
+#### Building for armhf
+On a snappy armhf system, just enable classic-mode, start the classic shell and install snapcraft and git in there.
+
+```
+sudo snappy enable-classic
+snappy shell classic
+apt-get install git snapcraft
+```
+
+Afterwards use git to clone the tree and build
+
+```
+snapcraft snap
+```
+
+Your home in classic is shared with the snappy system, so if you exit the classic shell you can simply run:
+
+```
+snappy install bitlano*.snap
+```
+
+
 ### Ubuntu 14.04
 #### Burning the image
 

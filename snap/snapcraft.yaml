@@ -1,0 +1,22 @@
+name: bitlano
+version: 0
+summary: A python sha3 implementation
+description: A python2 project using snapcraft
+icon: icon.png
+
+# device to cloud (d2c)
+apps:
+  d2c:
+    command: bin/d2c
+
+parts:
+  bitlano-juju:
+    plugin: python2
+    requirements: bitlano-juju/requirements.txt
+    build-packages: [cython, libbluetooth-dev]
+    stage-packages: [libbluetooth3]
+  d2c:
+    plugin: copy
+    files:
+     d2c.py: bin/d2c
+

@@ -1,0 +1,6 @@
+git+https://github.com/numpy/numpy.git
+git+https://github.com/pyserial/pyserial.git
+git+https://github.com/karulis/pybluez.git
+git+https://github.com/SaMnCo/bitalino-python.git
+git+https://github.com/dpkp/kafka-python.git
+
