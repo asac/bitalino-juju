@@ -1,3 +1,5 @@
+#!/usr/bin/env python2.7
+
 import sys
 sys.path.append('.')
 
@@ -5,16 +7,42 @@ import bitalino
 from kafka import KafkaProducer
 import json
 import time
+import yaml
+
+KAFKA_HOST="localhost"
+KAFKA_PORT="8080"
+BITALINO_TOPIC="bitalino-snappy"
+BITALINO_MAC_ADDRESS="00:00:00:00:00:"
+
+config_yaml=None
+
+# if we are run in snap environment, get config from yaml
+if os.environ['SNAP_APP_DATA_PATH'] is not None:
+	config_path = os.path.join(os.environ['SNAP_APP_DATA_PATH'], "bitlanino.yaml")
+	default_path = os.path.join(os.environ['SNAP'], "bitlanino.yaml.default")
+	if not os.path.exists(config_path):
+		shutils.copy(default_path, config_path)
+	bitalino_yaml = yaml.load(config_path)['bitalino']
+
+if bitalino_yaml is not None:
+	if 'kafka-host' in bitalino_yaml:
+		KAFKA_HOST = bitalino_yaml['kafka-host']
+	if 'kafka-port' in bitalino_yaml:
+		KAFKA_PORT = bitalino_yaml['kafka-port']
+	if 'topic' in bitalino_yaml:
+		BITALINO_TOPIC = bitalino_yaml['topic']
+	if 'mac-address' in bitalino_yaml:
+		BITALINO_MAC_ADDRESS = bitalino_yaml['mac-address']
 
 device = bitalino.BITalino()
-producer = KafkaProducer(bootstrap_servers='KAFKA_HOST:KAFKA_PORT',
+producer = KafkaProducer(bootstrap_servers=KAFKA_HOST +':'+ str(KAFKA_PORT),
     api_version="0.9",
     acks=1,
     value_serializer=json.dumps
     )
 
-topic = 'MY_BITALINO'
-macAddress = 'BITALINO_MAC_ADDRESS'
+topic = BITALINO_TOPIC
+macAddress = BITALINO_MAC_ADDRESS
 # We collect data every 10ms
 SamplingRate = 100
 

@@ -1,0 +1,6 @@
+bitalino:
+	kafka-host: 'localhost'
+	kafka-port: 8080
+	topic: 'bitalino-snappy'
+	mac-address: '00:00:00:00:00:00'
+

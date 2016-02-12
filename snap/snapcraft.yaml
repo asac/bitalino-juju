@@ -4,6 +4,8 @@ summary: A python sha3 implementation
 description: A python2 project using snapcraft
 icon: icon.png
 
+config: bin/config
+
 # device to cloud (d2c)
 apps:
   d2c:
@@ -19,4 +21,6 @@ parts:
     plugin: copy
     files:
      d2c.py: bin/d2c
+     config: bin/config
+     bitalino.yaml.default: bitalino.yaml.default
 

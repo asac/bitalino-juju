@@ -1,0 +1,20 @@
+#!/bin/sh
+
+input='-'
+
+if test -n '$1'; then
+	input=$1
+fi
+
+file=`cat $input`
+
+if test -n "$file"; then
+	echo $file > $SNAP_APP_DATA_PATH/bitalino.yaml
+fi
+
+if ! test -e $SNAP_APP_DATA_PATH/bitalino.yaml; then
+	cp -f $SNAP/bitalino.yaml.default $SNAP_APP_DATA_PATH/bitalino.yaml
+fi
+
+cat $SNAP_APP_DATA_PATH/bitalino.yaml
+
