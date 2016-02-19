@@ -1,4 +1,4 @@
-name: bitlano
+name: bitalino
 version: 0
 summary: A python sha3 implementation
 description: A python2 project using snapcraft
@@ -23,4 +23,5 @@ parts:
      d2c.py: bin/d2c
      config: bin/config
      bitalino.yaml.default: bitalino.yaml.default
+    stage-packages: [python2.7]
 
