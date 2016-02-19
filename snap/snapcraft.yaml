@@ -15,7 +15,7 @@ parts:
   bitlano-juju:
     plugin: python2
     requirements: bitlano-juju/requirements.txt
-    build-packages: [cython, libbluetooth-dev]
+    build-packages: [gcc, cython, libbluetooth-dev]
     stage-packages: [libbluetooth3]
   d2c:
     plugin: copy
@@ -23,5 +23,5 @@ parts:
      d2c.py: bin/d2c
      config: bin/config
      bitalino.yaml.default: bitalino.yaml.default
-    stage-packages: [python2.7]
+    stage-packages: [python-yaml]
 
