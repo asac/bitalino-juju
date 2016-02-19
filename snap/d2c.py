@@ -8,6 +8,8 @@ from kafka import KafkaProducer
 import json
 import time
 import yaml
+import os
+import shutil
 
 KAFKA_HOST="localhost"
 KAFKA_PORT="8080"
@@ -21,8 +23,10 @@ if os.environ['SNAP_APP_DATA_PATH'] is not None:
 	config_path = os.path.join(os.environ['SNAP_APP_DATA_PATH'], "bitalino.yaml")
 	default_path = os.path.join(os.environ['SNAP'], "bitalino.yaml.default")
 	if not os.path.exists(config_path):
-		shutils.copy(default_path, config_path)
-	bitalino_yaml = yaml.load(config_path)['bitalino']
+		shutil.copy(default_path, config_path)
+	with open(config_path, 'r') as stream:
+		config_yaml = yaml.load(stream)["config"]
+	bitalino_yaml = config_yaml['bitalino']
 
 if bitalino_yaml is not None:
 	if 'kafka-host' in bitalino_yaml:
