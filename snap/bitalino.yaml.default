@@ -1,7 +1,7 @@
 config:
     bitalino:
-	kafka-host: 'localhost'
-	kafka-port: 8080
-	topic: 'bitlano-snappy'
-	mac-address: '00:00:00:00:00:00'
+        kafka-host: '52.49.163.233'
+        kafka-port: 9092
+        topic: 'bit-20-15-10-26-63-81'
+        mac-address: '20:15:10:26:63:81'
 
