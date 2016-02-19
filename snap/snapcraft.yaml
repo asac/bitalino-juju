@@ -10,6 +10,12 @@ config: bin/config
 apps:
   d2c:
     command: bin/d2c
+    uses: [ unconfined ]
+
+uses:
+  unconfined:
+    type: migration-skill
+    security-template: unconfined
 
 parts:
   bitlano-juju:
