@@ -1,6 +1,6 @@
 name: bitalino
 version: 0
-summary: A python sha3 implementation
+summary: A python bitalino agent 
 description: A python2 project using snapcraft
 icon: icon.png
 
