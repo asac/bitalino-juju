@@ -45,6 +45,11 @@ producer = KafkaProducer(bootstrap_servers=KAFKA_HOST +':'+ str(KAFKA_PORT),
     value_serializer=json.dumps
     )
 
+print "KAFKA_HOST" + KAFKA_HOST
+print "KAFKA_PORT" + str(KAFKA_PORT)
+print "BITALINO_TOPIC" + BITALINO_TOPIC
+print "BITALINO_MAC_ADDRESS " + BITALINO_MAC_ADDRESS
+
 topic = BITALINO_TOPIC
 macAddress = BITALINO_MAC_ADDRESS
 # We collect data every 10ms
