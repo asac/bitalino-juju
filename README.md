@@ -255,14 +255,26 @@ And copy the content below
 
     # Initializing device
     device.open(macAddress, SamplingRate)
+
+    # always stop to get a clean comm channel
+    device.stop()
+
+    # We won't stop until we have less than 5% of battery
+    th = device.battery(5)
+
+    # lets get bitalino version...
+    BITversion = device.version()
+    print "bitalino version: ", BITversion
+
+    # start the data flow - we collect all channels
+    device.start([0,1,2,3,4,5])
+`
     # We won't stop until we have less than 5% of battery
     th = device.battery(5)
 
     # Infinite data collection loop
     while True:
         try:
-            # We collect all channels
-            device.start([0,1,2,3,4,5])
             # We collect 1sec of data
             dataAcquired = device.read(100)
             message = dataAcquired.T.tolist()
