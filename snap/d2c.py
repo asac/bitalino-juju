@@ -10,6 +10,7 @@ import time
 import yaml
 import os
 import shutil
+import traceback
 
 KAFKA_HOST="localhost"
 KAFKA_PORT="8080"
@@ -57,14 +58,22 @@ SamplingRate = 100
 
 # Initializing device
 device.open(macAddress, SamplingRate)
+
+# always stop
+device.stop()
+
 # We won't stop until we have less than 5% of battery
 th = device.battery(5)
+
+BITversion = device.version()
+print "bitalino version: ", BITversion
+
+# We collect all channels - do this once before we start
+device.start([0,1,2,3,4,5])
 
 # Infinite data collection loop
 while True:
     try:
-        # We collect all channels
-        device.start([0,1,2,3,4,5])
         # We collect 1sec of data
         dataAcquired = device.read(100)
         message = dataAcquired.T.tolist()
@@ -73,6 +82,7 @@ while True:
         break
     except Exception as e:
         print e
+        traceback.print_exc(file=sys.stdout)
         time.sleep(1000)
 
 device.stop()
