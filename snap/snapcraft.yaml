@@ -1,20 +1,22 @@
 name: bitalino
 version: 0
-summary: A python bitalino agent 
-description: A python2 project using snapcraft
+summary: DIY biosignals by bitalino and snappy Ubuntu Core
+vendor: MWC Demo Prep Team <asac@canonical.com>
+description: Bitalino - your medical appliance
 icon: icon.png
 
 config: bin/config
 
 # device to cloud (d2c)
-apps:
-  d2c:
-    command: bin/d2c
-    uses: [ unconfined ]
+services:
+  d2c-service:
+    start: bin/d2c
+    security-template: unconfined
+    description: the bitalino device to cloud services
 
-uses:
-  unconfined:
-    type: migration-skill
+binaries:
+  d2c:
+    exec: bin/d2c
     security-template: unconfined
 
 parts:
