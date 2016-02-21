@@ -22,7 +22,7 @@ config_yaml=None
 # if we are run in snap environment, get config from yaml
 if os.environ['SNAP_APP_DATA_PATH'] is not None:
 	config_path = os.path.join(os.environ['SNAP_APP_DATA_PATH'], "bitalino.yaml")
-	default_path = os.path.join(os.environ['SNAP'], "bitalino.yaml.default")
+	default_path = os.path.join(os.environ['SNAP_APP_PATH'], "bitalino.yaml.default")
 	if not os.path.exists(config_path):
 		shutil.copy(default_path, config_path)
 	with open(config_path, 'r') as stream:
